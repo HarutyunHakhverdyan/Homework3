@@ -1,5 +1,49 @@
-/*
-//2. Write a JavaScript function to get all possible subsets of given length of the given
+
+//1. Create a function that builds a tree like object given an array with object which
+//contains parent and id properties.
+
+function treeObj(arr,i=0,obj={}){
+    if(i!=arr.length){
+      let {parent:p,id}=arr[i];
+      if(p==null){
+        obj[id]={}
+      }
+      function objRec(obj,p,id,t=1){
+        for(let key1 in obj){
+          if(key1==p){
+            obj[key1][id]={}
+            t=0
+          }
+          for(let key2 in obj[key1]){
+            if(p==key2){
+              obj[key1][key2][id]={}
+              t=0
+            }
+          }
+        if(t){
+          objRec(obj[key1],p,id)
+        }
+       }
+      }
+     objRec(obj,p,id)
+      i++
+      treeObj(arr,i,obj)
+    }
+    return obj
+};
+let result=treeObj( [
+{ parent: null, id: 0 },
+{parent: 0, id: 1 },
+{parent: 0, id: 2 }, 
+{parent: 1, id: 3 },
+{parent: 1, id: 4 },
+{parent: 2, id: 5 },
+{parent: 4, id: 6 },
+{parent: 6, id: 7 }
+]);
+console.log(result)
+
+// 2. Write a JavaScript function to get all possible subsets of given length of the given
 //array.
  function a(arr,n,newArr=[],firstI=0,nextI=1,curentI=2){    
   if(newArr.length!=n){
@@ -67,45 +111,4 @@ function minPositiv(arr,i=0,minEl=-1){
 };
 let result=minPositiv([-1,-2,-3,-2,-4,-5,6]);
 console.log(result)
-*/
-function treeObj(arr,i=0,obj={}){
-    if(i!=arr.length){
-      let {parent:p,id}=arr[i];
-      if(p==null){
-        obj[id]={}
-      }
-      function objRec(obj,p,id,t=1){
-        for(let key1 in obj){
-          if(key1==p){
-            obj[key1][id]={}
-            t=0
-          }
-          for(let key2 in obj[key1]){
-            if(p==key2){
-              obj[key1][key2][id]={}
-              t=0
-            }
-          }
-        
-        if(t){
-          objRec(obj[key1],p,id)
-        }
-       }
-      }
-     objRec(obj,p,id)
-      i++
-      treeObj(arr,i,obj)
-    }
-    return obj
-};
-let result=treeObj( [
-{ parent: null, id: 0 },
-{parent: 0, id: 1 },
-{parent: 0, id: 2 }, 
-{parent: 1, id: 3 },
-{parent: 1, id: 4 },
-{parent: 2, id: 5 },
-{parent: 4, id: 6 },
-{parent: 5, id: 7 }
-]);
-console.log(result)
+
