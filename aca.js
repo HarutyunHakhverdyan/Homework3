@@ -14,12 +14,6 @@ function treeObj(arr,i=0,obj={}){
             obj[key1][id]={}
             t=0
           }
-          for(let key2 in obj[key1]){
-            if(p==key2){
-              obj[key1][key2][id]={}
-              t=0
-            }
-          }
         if(t){
           objRec(obj[key1],p,id)
         }
